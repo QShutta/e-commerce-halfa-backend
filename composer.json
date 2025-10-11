@@ -1,0 +1,6 @@
+{
+    "require": {
+        "google/auth": "^1.48",
+        "guzzlehttp/guzzle": "^7.10"
+    }
+}
