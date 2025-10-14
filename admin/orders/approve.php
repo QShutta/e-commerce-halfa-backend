@@ -9,10 +9,18 @@ include "../../connect.php";
 //Also there is a nofication will apear to the user telling him that the order status change from waiting to prepering
 //We have to update the order status from 0 to 1
 $order_id = filterRequest('order_id');
+//This because of we want to change the status from 0 to 1
 $data=[
     "order_status"=>"1"
 ];
 updateData("orders",$data,"order_id='$order_id' And order_status=0");
-$user_id= filterRequest('user_id');
-sendFcmNotification("Hey","You'r order with the id $order_id has been approved and now it's preparing","users$user_id","none","none");
+//after of that we have update the status of the order we have to send notfication to the user to tell him what is going on .
+$user_id= filterRequest('user_id');sendFcmNotification(
+  "Order Update",
+  "Your order #$order_id has been accepted and is now being prepared.",
+  "users$user_id",
+  "none",
+  "none"
+);
+
 ?>

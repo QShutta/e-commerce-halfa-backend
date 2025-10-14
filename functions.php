@@ -368,27 +368,8 @@ function sendFcmNotification(string $title, string $message, string $topic, stri
 {
     // === CONFIGURATION ===
     // Path to your Firebase service account JSON file.
-    // The file contains secret credentials that allow this server to authenticate with Firebase.
-    // Try multiple common locations (Linux path used previously + project-relative + Windows/XAMPP path).
-    $possiblePaths = [
-        getenv('GOOGLE_APPLICATION_CREDENTIALS'),
-        __DIR__ . '/privite_files/service-acount.json',
-        __DIR__ . '/service-acount.json',
-        __DIR__ . '/../privite_files/service-acount.json',
-        'C:\\xampp\\htdocs\\e-commerce-halfa\\privite_files\\service-acount.json',
-        '/home/qasimshu/domains/qasimshutta.shop/privite_files/service-acount.json',
-    ];
-
-    $serviceAccountFile = null;
-    foreach ($possiblePaths as $p) {
-        if (empty($p)) continue;
-        if (file_exists($p)) { $serviceAccountFile = $p; break; }
-    }
-
-    if (!$serviceAccountFile) {
-        error_log("FCM Error: service account JSON not found. Checked: " . implode(', ', array_filter($possiblePaths)));
-        return null;
-    }
+    // الملف دا فيه بيانات سرية بتخلي النظام دا يقدر يتعامل مع Firebase.
+   $serviceAccountFile = '/home/qasimshu/domains/qasimshutta.shop/privite_files/service-acount.json';
 
     // Your Firebase Project ID
     $projectId = 'e-commerce-halfa';
@@ -438,8 +419,18 @@ function sendFcmNotification(string $title, string $message, string $topic, stri
         // 4. Send the HTTP POST request using Guzzle
         $client = new Client();
         $response = $client->post($url, [
+            //What is the Bearer token?
+            //when our server ask firebase to send notifcation Google will check if the request is come from the authenticated server or not
+            //if the request is come from the authenticated server it will send the notification to the user.
+            //How to know if the request come from the authenticated server?
+            //The request should contain a special token called Bearer token.
+            //This token is generated using the service account file.
+            //يعن الزول العامل طلب دة لو ما عندو توكن صحيح ما حيرسل ليهو الاشعار.
             'headers' => [
                 'Authorization' => 'Bearer ' . $accessToken, // Bearer token for authentication
+                /*🧠 What Content-Type means:
+                      Content-Type = type of data you are sending.
+                      application/json = means the body (payload) is written in JSON format (like { "title": "Hi", "body": "Message" }).*/
                 'Content-Type' => 'application/json', // JSON payload
             ],
             'json' => $payload, // The notification data
