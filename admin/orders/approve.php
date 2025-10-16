@@ -13,20 +13,32 @@ $order_id = filterRequest('order_id');
 //This because of we want to change the status from 0 to 1
 $data=[
     "order_status"=>"1"
-];
+  ];
 updateData("orders",$data,"order_id='$order_id' And order_status=0");
 //after of that we have update the status of the order we have to send notfication to the user to tell him what is going on .
 $user_id= filterRequest('user_id');
 //Know will use this function to send the notfication.
-sendFcmNotification(
-  "Order Update",
-  "Your order #$order_id has been accepted and is now being prepared.",
-  "users$user_id",
-  "none",
-  //pageName.
-  //هنا نحنا ما قاصدين بي اسم الصفحة ياهو الاسم القاعد في الفرونت ظط يعني المهم اي حاجة تكون مفهومة لي في الفرونت توريني الاشعار 
-  //دة مقصود بيهو اي صفحة بالتحديد.
-  "order"
+// sendFcmNotification(
+//   "Order Update",
+//   "Your order #$order_id has been accepted and is now being prepared.",
+//   "users$user_id",
+//   "none",
+//   //pageName.
+//   //هنا نحنا ما قاصدين بي اسم الصفحة ياهو الاسم القاعد في الفرونت ظط يعني المهم اي حاجة تكون مفهومة لي في الفرونت توريني الاشعار 
+//   //دة مقصود بيهو اي صفحة بالتحديد.
+//   "order"
+// );
+
+//Will replace the sendFcmNotification with insertNotfication fun why?
+//Becuase it will do 2 taks:1-send notfication.2-insert the notfication to the notfication table so that we can dispaly all
+//of the notfication in the notficaiton table.
+insertNotfication(
+"Order Update",
+"Your order #$order_id has been accepted and is now being prepared.",
+$user_id,
+"users$user_id",
+"none",
+"order"
 );
 
 ?>

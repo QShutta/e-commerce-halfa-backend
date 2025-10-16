@@ -552,4 +552,28 @@ function checkAuthenticate(){
         exit;
     }
 }
+//The overall goal is to copine the 2 process in just one proccess insert the notfication to the notication table.
+//send the notfication to the user.
+//We are going to create function.
+//The goal of the function is to insert the notfication in the DB Table
+//Why?in the app we have page called notfication page .in this page we have to display all of the notfication 
+//that belong to spacfic user.so we have to save the notfication in spacfic table in db.
+function insertNotfication($title,$body,$userId,$topic,$pageId,$pageName){
+ global $con;
+ $stmt=$con->prepare("INSERT INTO `notfication`( `notfication_title`, `notfication_body`, `notfication_user_id`) VALUES (?,?,?)");
+ //why did we need the  user id?
+ //Because of we need to know that this notfication will be send to each
+ $stmt->execute([$title,$body,$userId]);
+ //We don't want to have to seprate fucntion  one that send notfication.and another one that save the notfication in the DB.
+ sendFcmNotification(
+  $title,
+  $body,
+  $topic,
+  $pageId,
+  $pageName,
+);
+//If we wnat to know the result of the proccess will use this var 'count'
+$count=$stmt->rowCount();
+return $count;
+}
 ?>
