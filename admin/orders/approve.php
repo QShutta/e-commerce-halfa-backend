@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 include "../../connect.php";
-//Beofre of 157
+//Beofre of 158
 //What is the prupose of this file?
 //The purpose of this file is that when the user made an order this order will be waiting for approvel 
 //when the admin click on the approve button the order status will be change from 0 to 1 .
