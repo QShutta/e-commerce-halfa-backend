@@ -176,7 +176,24 @@ GROUP BY
 
 
 
-
+-- the course instructor create tow views:
+-- السبب إنو ما جمعهم من البداية بسيط لكن مهم جدًا في شغل الـ 
+-- Database، وخليني أشرح ليك خطوة بخطوة
+--
+-- 🔹 1. لو جمعهم من البداية
+-- يعني لو كتب كود واحد يربط:
+-- orders + address + cart + products
+-- في نفس الـ VIEW من البداية،
+-- النتيجة حتكون كدا:
+-- كود ضخم جدًا، طويل، وصعب تفهمه أو تعدله لاحقًا.
+--
+-- 🔸 أي تعديل بسيط (مثلاً تعديل في العنوان أو الخصم)
+-- حيخليه يغير الكود كله من البداية، وده تعب ومخاطرة.
+--
+-- 🔹 2. لكن لما قسمهم على مرحلتين
+-- هو عملها بطريقة ذكية ومنظمة:
+--   - order_view: تربط الطلب والعنوان بس
+--   - order_details_view: تستخدم الـ order_view الجاهزة، وتضيف ليها المنتجات والسلة
 
 
 
@@ -215,7 +232,7 @@ LEFT JOIN address ON orders.order_address=address.address_id
 -- Create or replace a view named 'cart_view'.
 -- A view is a virtual table based on the result-set of an SQL statement.
 -- This view will simplify querying complex joins later.
-CREATE OR REPLACE VIEW cart_view AS
+CREATE OR REPLACE VIEW order_details_view AS
 -- Select the columns we want to display in our view.
 SELECT 
     -- What is the reson that make you display in the view the orignal price of the product
@@ -296,5 +313,30 @@ INNER JOIN orders_view ON orders_view.order_id = cart.cart_order
 GROUP BY
     cart.cart_product_id,
     cart.cart_user_id;
+-- THE BENFIT OF THE cart.cart_order in the groub by is :
+-- "أجمع لي كل الصفوف اللي عندها نفس 
+-- cart_product_id ونفس cart_user_id في صف واحد."
+-- مثال للشرح :
+-- الحاصل قبل ما تضيف cart.cart_order:
+-- SQL بيشوف مثلاً:
+-- cart_product_id | cart_user_id | cart_order
+-- 85              | 81           | 1
+-- 85              | 81           | 2
+-- 85              | 81           | 3
+--
+-- كل ديل عندهم نفس المنتج 
+-- (cart_product_id = 85) ونفس المستخدم (cart_user_id = 81)
+-- فـ SQL بيجمعهم في صف واحد فقط لأنك ما قلت ليه يفرق بينهم حسب 
+-- cart_order.
+-- فبيجمع الأسعار والعدادات في صف واحد كبير.
+
+-- بعد ما تضيف cart.cart_order في الـ GROUP BY:
+-- GROUP BY cart.cart_product_id, cart.cart_user_id, cart.cart_order
+--
+-- كأنك بتقول ليه:
+-- "لو اختلف رقم الطلب (cart_order)، خليه صف مختلف."
+--
+-- يعني الحالات التلاتة فوق حتكون 3 صفوف مختلفة بدل صف واحد، لأن cart_order مختلف.
+
     cart.cart_order
 
