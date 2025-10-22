@@ -10,5 +10,5 @@ $order_id = filterRequest('order_id');
 //Because of that we filter using the order_id
 //You can normally add the condition with bot order_id and user_id 
 //لكن ما حيفيد بي اي شي ولا حيضطر بي شي وزيادة كود ساي .
-getAllData("order_details_view","order_id=?",[$order_id]);
+getAllData("order_details_view","cart_order=?",[$order_id]);
 ?>

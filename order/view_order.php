@@ -7,7 +7,7 @@ include "../connect.php";
 //Before of 144
 $order_user_id = filterRequest('order_user_id');
 
-getAllData("orders","order_user_id=?",[$order_user_id],true);
+getAllData("order_view","order_user_id=?",[$order_user_id],true);
 
 
 ?>
