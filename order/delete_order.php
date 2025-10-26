@@ -5,8 +5,10 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 include "../connect.php"; // Assumes this includes your database connection and functions like filterRequest, deleteData.
+//The job of this file is to allow the user to remove the order before of the admin approve the order.
+//that means the user can only remove the order if the order_status=0(which means the order is waiting for approvel)
 
-// 1. Get the necessary data from the request
+
 $order_id = filterRequest('order_id');
 
 // 2. SECURELY get the user's ID (ASSUMPTION: This comes from a secure session variable, NOT the request)
