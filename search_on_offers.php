@@ -4,7 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 include "./connect.php";
 $searchText=filterRequest('search_text');
-// If search is empty, return failure
+// Beofre of try to add the rating to the app.
 if (empty($searchText)) {
     echo json_encode(array("status" => "failure", "message" => "Search text is empty"));
     exit;
