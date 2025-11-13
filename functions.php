@@ -39,6 +39,21 @@ function failureMessage($message){
 */
 
 
+
+
+//There is a differnce between the user of update,insert and hwo tot use the getdata
+//when wnat to use the insertData we have to pass the data as key,value pair like this:
+/* $data=[
+    "rating_user_id"=>$rating_user_id,
+    "rating_product_id"=>$rating_product_id,
+    "rating_value"=>$rating_value
+];
+insertData("product_rating",$data,$json=true); */
+//But when getData we pass jus the value without of the key like:
+//getData("products","products_id=?",[$product_id],$json=true);
+
+
+
 //Why did you say $json=true?
 //because of in the case of i want to use this function to get the "catogeries,products" for the home page
 //i wnat to change the way of the print.
@@ -104,6 +119,20 @@ function getAllData($table, $where = null, $values = null,$json=true)
     }
    
 }
+
+
+//There is a differnce between the user of update,insert and hwo tot use the getdata
+//when wnat to use the insertData we have to pass the data as key,value pair like this:
+/* $data=[
+    "rating_user_id"=>$rating_user_id,
+    "rating_product_id"=>$rating_product_id,
+    "rating_value"=>$rating_value
+];
+insertData("product_rating",$data,$json=true); */
+//But when getData we pass jus the value without of the key like:
+//getData("products","products_id=?",[$product_id],$json=true);
+
+
 //The getData fun will bring only one 
 //row from the table even if the table contain more than one row.
 //الدالة دي بتستخدم عشان تجيب بيانات من جدول معين في قاعدة البيانات.
@@ -168,6 +197,16 @@ function result($count, $successMessage, $failureMessage) {
 }
 
 
+//There is a differnce between the user of update,insert and hwo tot use the getdata
+//when wnat to use the insertData we have to pass the data as key,value pair like this:
+/* $data=[
+    "rating_user_id"=>$rating_user_id,
+    "rating_product_id"=>$rating_product_id,
+    "rating_value"=>$rating_value
+];
+insertData("product_rating",$data,$json=true); */
+//But when getData we pass jus the value without of the key like:
+//getData("products","products_id=?",[$product_id],$json=true);
 
 //What the fcack why did he set the json =true?xxxxxxxxxxxxxxxx
 function insertData($table, $data, $json = true)

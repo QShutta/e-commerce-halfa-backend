@@ -29,8 +29,8 @@ $catogeries = getAllData("catogeries", null, null, false);
 // عشان نرجع بيانات من جداول مختلفة في نفس الوقت
 $allData['catogeries'] = $catogeries;
 //قلنا ليهو جيب جميع المنتجات العليها خصم.
-$catogeries = getAllData("products1_view", "product_discount!=0", null, false);
-$allData['products'] = $catogeries;
+$products = getAllData("products1_view", "product_discount!=0", null, false);
+$allData['products'] = $products;
 
 echo json_encode($allData);
 ?>
