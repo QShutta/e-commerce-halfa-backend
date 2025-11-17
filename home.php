@@ -31,6 +31,8 @@ $allData['catogeries'] = $catogeries;
 //قلنا ليهو جيب جميع المنتجات العليها خصم.
 $products = getAllData("products1_view", "product_discount!=0", null, false);
 $allData['products'] = $products;
-
+//to add the top selling products to the getAllData map.
+$topSelling=getAllData("top_selling_view", "1=1", null, false);
+$allData['topSelling']=$topSelling;
 echo json_encode($allData);
 ?>
