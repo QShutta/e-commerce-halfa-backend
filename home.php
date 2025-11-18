@@ -4,6 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 // تضمين ملف الاتصال بقاعدة البيانات
 include "connect.php";
+//Before of 173
 
 // إنشاء مصفوفة فاضية لتجميع البيانات من أكثر من جدول
 $allData = array();
