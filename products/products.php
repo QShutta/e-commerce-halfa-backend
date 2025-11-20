@@ -2,7 +2,7 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-//Before of 115
+//Before of try to fix the error of thome fav issue.
 // تضمين ملف الاتصال بقاعدة البيانات
 include "../connect.php";
 //Before of 85

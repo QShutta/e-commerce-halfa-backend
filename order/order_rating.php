@@ -3,7 +3,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 include "../connect.php";
-
+//the exist of the order_user_id 
+//هنا انا خاتيهو من ناحية امنية بحتة ما من نحية تقينة.لانو لو خليتو دي ثقرة ممكن يستخدموها attackers
 $order_user_id = filterRequest('order_user_id');
 $order_id  = filterRequest('order_id');
 //This represent the rating value like 1,2,4,4.2....
