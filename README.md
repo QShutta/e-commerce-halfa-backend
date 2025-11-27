@@ -61,32 +61,6 @@ A lightweight PHP backend providing REST endpoints for a mobile/web e-commerce a
 - `connect.php`: set your MySQL host, DB name, username and password.
 - `functions.php`: contains `$projectId` in the `sendFcmNotification` function — ensure it matches your Firebase `project_id` or let the service-account JSON define the project.
 
-## Usage
-- Use the provided endpoints under folders like `products/`, `cart/`, `order/`, `auth/` etc.
-- To test FCM quickly, open in browser (or run CLI):
-  `http://your-host/e-commerce-halfa/test.php` or
-  `C:\xampp\php\php.exe C:\xampp\htdocs\e-commerce-halfa\test.php`
 
-## Troubleshooting
-- "FCM Error: service account JSON not found": place the JSON where the code checks or set `GOOGLE_APPLICATION_CREDENTIALS`.
-- TLS/curl errors: ensure `ca-certificates` (Linux) or `cacert.pem` (Windows) is configured and `curl.cainfo`/`openssl.cafile` set in php.ini.
-- Missing vendor folder: run `composer install`.
-- Time skew errors: sync server time (NTP).
-- Check logs: Apache/Nginx error logs and PHP error log for `FCM Error` or `FCM Guzzle Error` messages.
 
-## Testing
-- Unit tests: none included; use `test.php` to test FCM and endpoint calls.
-- Manual API tests: use Postman or curl to call endpoints and verify JSON responses.
 
-## Contributing
-- Keep code small and focused. Follow existing coding style. Fix bugs at the root cause and document changes.
-
-## Security notes
-- Never commit your service-account JSON to source control. Store it outside webroot and restrict file permissions.
-- Rotate keys if they are exposed.
-
-## License
-Include your preferred license here (e.g., MIT) or add a `LICENSE` file.
-
----
-If you want, I can also add a short `CONTRIBUTING.md`, update `test.php` to print more verbose FCM errors, or add example curl requests for the main endpoints.
