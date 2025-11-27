@@ -9,6 +9,7 @@
 --عشان كدة انشانا ال 
 --view
 --دي عشان يكون عندنا جدول يحتوي علي المنتجات وفي نفس الوقت اسماء الاقسام البتنتمي ليها المنتجات
+
 CREATE OR REPLACE VIEW products_view AS
 SELECT products.*, catogeries.catogeries_name_ar, catogeries.catogeries_name_en
 FROM products
@@ -369,9 +370,9 @@ CREATE or REPLACE VIEW top_selling_view AS
 -- هنا بنختار الأعمدة اللي عايزينها تظهر في الـ View
 SELECT
     -- بنعد كل صف (أوردر) لكل منتج، ونسمي العمود دة 
-    -- "productCount"
+    -- "orderCount"
     -- دة هو اللي بيقولنا المنتج دة اتباع كام مرة
-    COUNT(cart.cart_product_id) as productCount,
+    COUNT(cart.cart_product_id) as orderCount,
     products.*
 
 -- بنبدأ بجدول الـ cart لأنه هو اللي فيه حركات البيع (الأوردرات)

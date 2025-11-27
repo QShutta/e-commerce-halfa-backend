@@ -29,9 +29,55 @@ $catogeries = getAllData("catogeries", null, null, false);
 //نحنا هنا يا مكتب حنخزن اكتر من بيانات يعني نحنا لي عملنا الجوطة والجوباك دة كلو يا مكتب؟
 // عشان نرجع بيانات من جداول مختلفة في نفس الوقت
 $allData['catogeries'] = $catogeries;
+
+$user_id = filterRequest('user_id');
+
 //قلنا ليهو جيب جميع المنتجات العليها خصم.
-$products = getAllData("products1_view", "product_discount!=0", null, false);
-$allData['products'] = $products;
+
+
+
+// $products = getAllData("products1_view", "product_discount!=0", null, false);
+// $allData['products'] = $products;
+$stmt = $con->prepare(
+    " -- الجزء الأول: جلب المنتجات المفضلة فقط
+    SELECT products1_view.*, 1 AS fav ,
+    (product_price-(product_price*product_discount/100)) As priceAfterDiscount
+     FROM products1_view 
+     INNER JOIN favorite 
+     ON favorite.product_id = products1_view.products_id 
+     AND favorite.user_id = $user_id 
+     where product_discount!=0
+     
+     UNION
+     SELECT products1_view.*, 0 AS fav ,
+     (product_price-(product_price*product_discount/100)) As priceAfterDiscount
+     FROM products1_view
+     where 
+     product_discount!=0
+     and  products_id NOT IN (
+         SELECT products1_view.products_id 
+         FROM products1_view 
+         INNER JOIN favorite 
+         ON favorite.product_id = products1_view.products_id 
+         AND favorite.user_id = $user_id
+     )"
+);
+
+
+
+
+$stmt->execute();
+$products=$stmt->fetchAll(PDO::FETCH_ASSOC);
+$allData['products']=$products;
+
+
+
+
+
+
+
+
+
 //to add the top selling products to the getAllData map.
 $topSelling=getAllData("top_selling_view", "1=1", null, false);
 
